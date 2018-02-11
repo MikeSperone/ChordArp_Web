@@ -1,7 +1,7 @@
 import React from 'react';
 import Slider from './atoms/Slider';
 
-class EvelopeControls extends React.Component {
+export default class EnvelopeControls extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
