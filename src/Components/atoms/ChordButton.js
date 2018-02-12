@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Button = styled.button`
+    background-color: gray;
     width: 100px;
     height: 50px;
 `;
@@ -13,11 +14,10 @@ class ChordButton extends React.Component {
         this.chordName = props.chordName;
         this.chordFullName = props.chordName;
         this.chordShortName = this.getShortName(props.chordName);
-        console.log("short name: ", this.chordShortName);
     }
 
     getShortName(fullName) {
-        let nameSplit = fullName.split(" ");
+        let nameSplit = fullName.split("-");
         let letterName = nameSplit[0];
         let chordType = nameSplit[1];
         var type;

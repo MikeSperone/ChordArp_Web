@@ -46,8 +46,9 @@ class SideControls extends React.Component {
     }
 
     powerSwitch() {
+        console.log("power switch");
         this.setState((prevState, props) => {
-            this.props.power(!prevState.power);
+            props.power(!prevState.power);
             return {power: !prevState.power};
         });
     }

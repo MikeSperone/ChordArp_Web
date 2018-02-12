@@ -22,7 +22,7 @@ const chords  = {
             case "int":
                 return this.interval(p, interval);
             default:
-                return this.root();
+                return [this.root, this.root, this.root];
         }
     
     },
