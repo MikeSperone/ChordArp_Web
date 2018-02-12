@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import ChordButton from './atoms/ChordButton';
 import styled from 'styled-components';
 
+const FieldWrapper = styled.div`
+    display: block;
+    float: left;
+    width: 600px;
+`;
 const Row = styled.div`
     display: block;
 `;
@@ -27,7 +32,7 @@ class ButtonField extends Component {
 
   render() {
     return (
-      <div className="Button-Field" onClick={this.changeChord.bind(this)}>
+      <FieldWrapper onClick={this.changeChord.bind(this)}>
         <Row>
             <ChordButton chordName="Gb-maj"/>
             <ChordButton chordName="Db-maj"/>
@@ -68,7 +73,7 @@ class ButtonField extends Component {
             <ChordButton chordName="F#-maj" />
             <ChordButton chordName="C#-maj" />
         </Row>
-      </div>
+      </FieldWrapper>
     );
   }
 }

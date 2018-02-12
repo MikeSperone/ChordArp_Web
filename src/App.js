@@ -1,10 +1,20 @@
 import React, { Component } from 'react';
 import ButtonField from './Components/ButtonField';
-import TopControls from './Components/TopControls';
-import SideControls from './Components/SideControls';
+import Power from './Components/atoms/Power';
+import {
+    DensityControl,
+    RangeControl,
+    SpeedControl,
+    VolumeControl
+} from './Components/Controls';
+import ToneControls from './Components/ToneControls';
+import styled from 'styled-components';
 
 import Synth from './Synth';
 
+const TopSection = styled.div`
+    width: 100%;
+`;
 
 class App extends Component {
     constructor(props) {
@@ -21,8 +31,9 @@ class App extends Component {
 
         };
         this.state = {
+            currentChord: this.defaults.currentChord,
             density: this.defaults.density,
-            currentChord: this.defaults.currentChord
+            power: this.defaults.power
         };
         this.synth = new Synth(this.state.density, this.defaults);
     }
@@ -31,30 +42,37 @@ class App extends Component {
         this.setState({ currentChord }, () => this.synth.changeChord(this.state.currentChord));
     }
 
-    power(power) {
-        console.log("App power: ", power);
-        this.setState({power}, () => this.synth.power(this.state.power));
+    power() {
+        this.setState(
+            prevState => {
+                return {power: !prevState.power};
+            },
+            () => this.synth.power(this.state.power)
+        );
     }
 
     render() {
         return (
             <div className="App">
-                <div className="App-header">
-                    <TopControls
-                        range={r => this.synth.changeRange(r)}
-                        speed={s => this.synth.changeSpeed(s)}
-                        density={d => this.synth.changeDensity(d)}
-                        volume={v => this.synth.changeVolume(v)}
-                    />
-                </div>
+                <TopSection>
+                    <RangeControl range={r => this.synth.changeRange(r)} />
+                    <SpeedControl speed={s => this.synth.changeSpeed(s)} />
+                    <DensityControl density={d => this.synth.changeDensity(d)} />
+                    <Power
+                        onClick={() => this.power()}
+                        style={{backgroundColor: this.state.power ? "green" : "red"}}
+                    >
+                        Power
+                    </Power>
+                </TopSection>
                 <ButtonField
                     changeChord={c => this.setChord(c)}
                     currentChord={this.state.currentChord}
                 />
-                <SideControls
-                    power={this.power.bind(this)}
+                <ToneControls
                     tone={(t) => this.synth.changeTone(t)}
                 />
+                <VolumeControl volume={v => this.synth.changeVolume(v)} />
 
             </div>
         );
