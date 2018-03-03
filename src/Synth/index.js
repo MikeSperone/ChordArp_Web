@@ -75,7 +75,7 @@ export default class Synth {
         });
     }
     setTone(t) {
-        this.current.currentTone = v;
+        this.current.currentTone = t;
         this.synthVoices.forEach(synth => {
             synth.setTone(t);
         });
