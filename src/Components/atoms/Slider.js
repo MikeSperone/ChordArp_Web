@@ -15,9 +15,9 @@ const Label = styled.label`
     width: 6rem;
     vertical-align: bottom;
     ${props => props.vertical && `
+        width: auto;
+        padding: .5rem;
         position: relative;
-        top: ${SLIDER_WIDTH};
-        left: -20px;
     `}
 `;
 const Name = styled.span`
@@ -38,14 +38,16 @@ const StyledInput= styled.input`
     padding: .25rem .5rem;
     margin: 0;
     ${props => props.vertical && `
-        transform-origin: 75px 75px;
-        transform: rotate(-90deg);
+        width: 40vh;
+        transform-origin: top right;
+        transform: rotate(-90deg) translateY(-40vh);
     `}
     &::-webkit-slider-thumb {
         -webkit-appearance: none;
         background: SteelBlue;
         border-radius: 10%;
         box-shadow: inset 1px 1px 1px LightSteelBlue;
+        cursor: pointer;
         outline: 1px solid black;
         height: 40px;
         width: 12px;

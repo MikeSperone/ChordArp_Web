@@ -55,6 +55,9 @@ class App extends Component {
         this.synth = new Synth(this.state.density, this.defaults);
     }
 
+    componentDidMount() {
+        document.getElementById(this.defaults.currentTone + '-radio').checked = true;
+    }
     setChord(currentChord) {
         this.setState({ currentChord }, () => this.synth.setChord(this.state.currentChord));
     }

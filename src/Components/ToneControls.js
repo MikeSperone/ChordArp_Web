@@ -20,6 +20,7 @@ class ToneControl extends React.Component {
         return (
             <p>
                 <input
+                    id={this.props.value + '-radio'}
                     onChange={(t) => this.changeTone(t)}
                     type="radio"
                     name="tone"

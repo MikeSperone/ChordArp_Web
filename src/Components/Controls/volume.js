@@ -4,7 +4,8 @@ import Slider from '../atoms/Slider';
 
 const StyleWrapper = styled.div`
     float: left;
-    ${props => `width: ` + props.width};
+    width: 40px;
+    ${props => `height: ` + props.width};
 `;
 export default class VolumeControl extends React.Component {
     constructor(props) {
