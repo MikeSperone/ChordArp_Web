@@ -110,7 +110,9 @@ class Voice {
         const interval = Math.random() * speedConst * this.speed;
         this.playNote();
         if (this.power) {
-            setTimeout(this.arpeggiate.bind(this), interval);
+            setTimeout(() => {
+                requestAnimationFrame(this.arpeggiate.bind(this));
+            }, interval);
         }
     }
 
