@@ -3,8 +3,8 @@ import styled from 'styled-components';
 
 const Button = styled.button`
     background-color: gray;
-    width: 100px;
-    height: 50px;
+    width: calc(100% / 6);
+    height: 100%;
 `;
 
 class ChordButton extends React.Component {

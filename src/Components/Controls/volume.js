@@ -4,8 +4,7 @@ import Slider from '../atoms/Slider';
 
 const StyleWrapper = styled.div`
     float: left;
-    height: 200px;
-    width: 40px;
+    ${props => `width: ` + props.width};
 `;
 export default class VolumeControl extends React.Component {
     constructor(props) {
@@ -18,7 +17,7 @@ export default class VolumeControl extends React.Component {
     }
     render() {
         return (
-            <StyleWrapper>
+            <StyleWrapper {...this.props}>
                 <Slider
                     sliderName="Volume"
                     value={this.state.volume}

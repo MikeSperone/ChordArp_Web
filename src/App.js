@@ -13,14 +13,20 @@ import styled, { injectGlobal } from 'styled-components';
 import Synth from './Synth';
 
 injectGlobal`
+    :focus {outline: none;}
     body {
         font-family: 'Open Sans', sans-serif;
         margin: 0;
     }
 `;
-const TopSection = styled.div`
-    width: 50%;
-    min-width: 450px;
+const ControlSection = styled.div`
+    height: 50vh;
+`;
+const MainControls = styled.div`
+    float: left;
+    width: 50vw;
+    min-width: 320px;
+    padding: 1rem;
 `;
 const PowerSection = styled.div`
     position: absolute;
@@ -40,7 +46,6 @@ class App extends Component {
             power: false,
             speed: 0.5,
             range: 1
-
         };
         this.state = {
             currentChord: this.defaults.currentChord,
@@ -66,27 +71,29 @@ class App extends Component {
     render() {
         return (
             <div className="App">
-                <TopSection>
-                    <RangeControl range={r => this.synth.setRange(r)} />
-                    <SpeedControl speed={s => this.synth.setSpeed(s)} />
-                    <DensityControl density={d => this.synth.setDensity(d)} />
-                </TopSection>
-                <PowerSection>
-                    <Power
-                        onClick={() => this.power()}
-                        style={{backgroundColor: this.state.power ? "green" : "red"}}
-                    >
-                        Power
-                    </Power>
-                </PowerSection>
+                <ControlSection>
+                    <MainControls>
+                        <RangeControl range={r => this.synth.setRange(r)} />
+                        <SpeedControl speed={s => this.synth.setSpeed(s)} />
+                        <DensityControl density={d => this.synth.setDensity(d)} />
+                    </MainControls>
+                    <ToneControls
+                        tone={(t) => this.synth.setTone(t)}
+                    />
+                    <VolumeControl width='40vh' volume={v => this.synth.setVolume(v)} />
+                    <PowerSection>
+                        <Power
+                            onClick={() => this.power()}
+                            style={{backgroundColor: this.state.power ? "green" : "red"}}
+                        >
+                            Power
+                        </Power>
+                    </PowerSection>
+                </ControlSection>
                 <ButtonField
                     changeChord={c => this.setChord(c)}
                     currentChord={this.state.currentChord}
                 />
-                <ToneControls
-                    tone={(t) => this.synth.setTone(t)}
-                />
-                <VolumeControl volume={v => this.synth.setVolume(v)} />
 
             </div>
         );

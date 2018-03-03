@@ -4,11 +4,11 @@ import styled from 'styled-components';
 
 const FieldWrapper = styled.div`
     display: block;
-    float: left;
-    width: 600px;
+    clear: both;
+    height: 50vh;
 `;
 const Row = styled.div`
-    display: block;
+    height: 20%;
 `;
 
 class ButtonField extends Component {
