@@ -1,22 +1,37 @@
 import React from 'react';
 import styled from 'styled-components';
 
+const SLIDER_WIDTH = '200px';
 const InputWrapper = styled.div`
-    margin: 40px 0 0 0%;
+    padding: 1rem;
     width: 100%;
 `;
 
 const Label = styled.label`
     display: inline-block;
-    width: 75px;
+    width: 120px;
+    padding: 1rem;
+    ${props => props.vertical && `
+        position: relative;
+        top: ${SLIDER_WIDTH};
+        left: -20px;
+    `}
+`;
+const Name = styled.span`
+    display: inline-block;
+    width: 80%;
+`;
+const Value = styled.span`
+    display: inline-block;
+    width: 20%;
 `;
 const StyledInput= styled.input`
     -webkit-appearance: none;
     background: silver;
     border-radius: 3px;
-    width: 200px;
-    outline: none;
-    padding: 0;
+    width: ${SLIDER_WIDTH};
+    border: 1px solid black;
+    padding: .25rem .5rem;
     margin: 0;
     ${props => props.vertical && `
         transform-origin: 75px 75px;
@@ -28,7 +43,7 @@ const StyledInput= styled.input`
         background: SteelBlue;
         border-radius: 10%;
         border: 1px solid LightSteelBlue;
-        height: 20px;
+        height: 40px;
         width: 12px;
     }
 `;
@@ -49,7 +64,12 @@ class Slider extends React.Component {
     render() {
         return (
             <InputWrapper>
-                <Label htmlFor={this.props.sliderName}>{this.props.sliderName}: {this.state.sliderValue}</Label>
+                <Label htmlFor={this.props.sliderName} {...this.props} >
+                    <Name>{this.props.sliderName}</Name>
+                    {this.props.vertical ? null : (
+                        <Value>{this.state.sliderValue}</Value>
+                    )}
+                </Label>
                 <StyledInput
                     id={this.props.sliderName}
                     max={this.props.max}

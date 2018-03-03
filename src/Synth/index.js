@@ -1,57 +1,89 @@
 import chords from '../util/chords';
 const speedConst = 5000;
+
 export default class Synth {
     constructor(num, defaults) {
         this.context = new (window.AudioContext || window.webkitAudioContext)();
         this.synthVoices = [];
-        this.defaults = defaults;
+        this.current = {
+            chord: {
+                letter: 'c',
+                type: 'maj'
+            },
+            power: defaults.power,
+            range: defaults.range,
+            speed: defaults.speed,
+            baseOctave: defaults.baseOctave,
+            currentTone: defaults.currentTone,
+            currentVolume: defaults.currentVolume
+        };
+        this.addSynthVoices(num);
+    }
+    addSynthVoices(num) {
         var i = 0;
         for (i; i < num; i++) {
-            this.createNewSynthVoice();
+            this.synthVoices.push(new Voice(this.context, this.current));
         }
     }
-    createNewSynthVoice() {
-        this.synthVoices.push(new Voice(this.context, this.defaults));
+    removeSynthVoices(num) {
+        for (num; num < 0; num++) {
+            const last = this.synthVoices.length - 1;
+            this.synthVoices[last].run(false);
+            this.synthVoices[last] = {};
+            this.synthVoices.pop();
+        }
     }
-
     power(power) {
-        console.log("Synth power: ", power);
+        this.current.power = power;
         this.synthVoices.forEach(synth => {
             synth.run(power);
         });
     }
-
-    changeBaseOctave(oct) {
+    setBaseOctave(oct) {
         this.synthVoices.forEach(synth => {
-            synth.changeBaseOctave(oct);
+            synth.setBaseOctave(oct);
         });
     }
-    changeChord(currentChord) {
+    setChord(currentChord) {
         const nameSplit = currentChord.split("-");
-        const letterName = nameSplit[0].toLowerCase();
-        const chordType = nameSplit[1].toLowerCase();
+        this.current.chord.letter = nameSplit[0].toLowerCase();
+        this.current.chord.type = nameSplit[1].toLowerCase();
         this.synthVoices.forEach(synth => {
-            synth.changeChord(letterName, chordType);
+            synth.setChord(this.current.chord.letter, this.current.chord.type);
         });
     }
-    changeRange(range) {
+    setDensity(newDensity) {
+        const currentDensity = this.synthVoices.length;
+        const voiceDiff = newDensity - currentDensity;
+        if (voiceDiff === 0) return;
+        if (voiceDiff > 0) {
+            this.addSynthVoices(voiceDiff);
+        } else {
+            this.removeSynthVoices(voiceDiff);
+        }
+    }
+    setRange(range) {
+        this.current.range = range;
         this.synthVoices.forEach(synth => {
-            synth.changeRange(range);
+            synth.setRange(range);
         });
     }
-    changeSpeed(speed) {
+    setSpeed(speed) {
+        this.current.speed = speed;
         this.synthVoices.forEach(synth => {
-            synth.changeSpeed(speed);
+            synth.setSpeed(speed);
         });
     }
-    changeTone(t) {
+    setTone(t) {
+        this.current.currentTone = v;
         this.synthVoices.forEach(synth => {
-            synth.changeTone(t);
+            synth.setTone(t);
         });
     }
-    changeVolume(v) {
+    setVolume(v) {
+        this.current.currentVolume = v;
         this.synthVoices.forEach(synth => {
-            synth.changeVolume(v);
+            synth.setVolume(v);
         });
     }
 }
@@ -59,13 +91,13 @@ export default class Synth {
 class Voice {
     constructor(ctx, defaults) {
         this.context = ctx;
-        this.chordLetter = 'c';
-        this.chordType = 'maj';
+        this.chordLetter = defaults.chord.letter;
+        this.chordType = defaults.chord.type;
         this.power = defaults.power;
         this.range = defaults.range;
         this.speed = defaults.speed;
-        this.currentTone = defaults.currentTone;
-        this.currentVolume = defaults.currentVolume;
+        this.tone = defaults.currentTone;
+        this.volume = defaults.currentVolume;
         this.baseOctave = defaults.baseOctave;
     }
 
@@ -82,25 +114,25 @@ class Voice {
         }
     }
 
-    changeChord(letter, type) {
+    setChord(letter, type) {
         this.chordLetter = letter;
         this.chordType = type;
     }
 
-    changeBaseOctave(oct) {
+    setBaseOctave(oct) {
         this.baseOctave = oct;
     }
-    changeRange(range) {
+    setRange(range) {
         this.range = range;
     }
-    changeSpeed(speed) {
+    setSpeed(speed) {
         this.speed = speed;
     }
-    changeTone(t) {
-        this.currentTone = t;
+    setTone(t) {
+        this.tone = t;
     }
-    changeVolume(v) {
-        this.currentVolume = v;
+    setVolume(v) {
+        this.volume = v;
     }
     playNote() {
         const i = Math.floor(Math.random() * 3);
@@ -115,9 +147,9 @@ class Voice {
     }
     synth(freq) {
         let ctx = this.context;
-        let vol = this.currentVolume * 0.5;
+        let vol = this.volume * 0.5;
         let osc = ctx.createOscillator();
-        osc.type = this.currentTone;
+        osc.type = this.tone;
         osc.frequency.value = freq;
 
         let gainNode = ctx.createGain();

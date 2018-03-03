@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 import Slider from '../atoms/Slider';
 
 export default class RangeControl extends React.Component {

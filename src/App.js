@@ -8,14 +8,26 @@ import {
     VolumeControl
 } from './Components/Controls';
 import ToneControls from './Components/ToneControls';
-import styled from 'styled-components';
+import styled, { injectGlobal } from 'styled-components';
 
 import Synth from './Synth';
 
-const TopSection = styled.div`
-    width: 100%;
+injectGlobal`
+    body {
+        font-family: 'Open Sans', sans-serif;
+        margin: 0;
+    }
 `;
-
+const TopSection = styled.div`
+    width: 50%;
+    min-width: 450px;
+`;
+const PowerSection = styled.div`
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 1rem;
+`;
 class App extends Component {
     constructor(props) {
         super();
@@ -39,7 +51,7 @@ class App extends Component {
     }
 
     setChord(currentChord) {
-        this.setState({ currentChord }, () => this.synth.changeChord(this.state.currentChord));
+        this.setState({ currentChord }, () => this.synth.setChord(this.state.currentChord));
     }
 
     power() {
@@ -55,24 +67,26 @@ class App extends Component {
         return (
             <div className="App">
                 <TopSection>
-                    <RangeControl range={r => this.synth.changeRange(r)} />
-                    <SpeedControl speed={s => this.synth.changeSpeed(s)} />
-                    <DensityControl density={d => this.synth.changeDensity(d)} />
+                    <RangeControl range={r => this.synth.setRange(r)} />
+                    <SpeedControl speed={s => this.synth.setSpeed(s)} />
+                    <DensityControl density={d => this.synth.setDensity(d)} />
+                </TopSection>
+                <PowerSection>
                     <Power
                         onClick={() => this.power()}
                         style={{backgroundColor: this.state.power ? "green" : "red"}}
                     >
                         Power
                     </Power>
-                </TopSection>
+                </PowerSection>
                 <ButtonField
                     changeChord={c => this.setChord(c)}
                     currentChord={this.state.currentChord}
                 />
                 <ToneControls
-                    tone={(t) => this.synth.changeTone(t)}
+                    tone={(t) => this.synth.setTone(t)}
                 />
-                <VolumeControl volume={v => this.synth.changeVolume(v)} />
+                <VolumeControl volume={v => this.synth.setVolume(v)} />
 
             </div>
         );
