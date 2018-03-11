@@ -9,7 +9,6 @@ var paths = require('./paths');
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // In development, we always serve from the root. This makes config easier.
-var publicPath = '/';
 var publicUrl = '';
 // Get enrivonment variables to inject into our app.
 var env = getClientEnvironment(publicUrl);
@@ -36,7 +35,7 @@ module.exports = {
         // changing JS code would still trigger a refresh.
     ],
     output: {
-        path: path.resolve(__dirname, 'build'),
+        path: paths.appBuild,
         filename: 'app.bundle.js'
     },
     module: {
