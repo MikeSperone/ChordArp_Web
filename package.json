@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "NODE_ENV=development ./node_modules/.bin/webpack-dev-server --config ./config/webpack.config.js",
-    "prod": "NODE_ENV=production ./node_modules/.bin/webpack --config ./config/webpack.config.prod.js"
+    "prod": "NODE_ENV=production ./node_modules/.bin/webpack --config ./config/webpack.config.prod.js",
+    "deploy": "npm run prod && deploy --proj=chord-arp --source=build/"
   },
   "repository": {
     "type": "git",
@@ -45,6 +46,6 @@
     "react-slider": "^0.9.0",
     "url": "^0.11.0",
     "webpack": "^3.12.0",
-    "webpack-dev-server": "^2.11.2"
+    "webpack-dev-server": "^3.1.10"
   }
 }
