@@ -1,0 +1,7 @@
+src/**/*.test.js
+
+--compilers js:@babel/register
+
+--require config/test-setup.js
+
+--recursive

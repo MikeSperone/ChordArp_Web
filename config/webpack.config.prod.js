@@ -94,24 +94,6 @@ module.exports = {
         minifyURLs: true,
       },
     }),
-    // Minify the code.
-    new UglifyJsPlugin({
-      uglifyOptions: {
-        ecma: 8,
-        compress: {
-          warnings: false,
-          comparisons: false,
-        },
-        mangle: {
-          safari10: true,
-        },
-        output: {
-          comments: false,
-          ascii_only: true,
-        },
-      },
-      sourceMap: true,
-    }),
   ],
   // Some libraries import Node modules but don't use them in the browser.
   // Tell Webpack to provide empty mocks for them so importing them works.

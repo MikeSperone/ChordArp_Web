@@ -1,5 +1,5 @@
 
-import Chords from '../Components/chords';
+var Chords = require('./chords');
 
 it ('gets pitch number from note name', () => {
     let chord = new Chords();
