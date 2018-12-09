@@ -18,6 +18,7 @@ class ButtonField extends Component {
         this.state = {
             currentChord: props.currentChord
         };
+        this.changeChord = this.changeChord.bind(this);
     }
 
     changeChord(e) {
@@ -32,7 +33,7 @@ class ButtonField extends Component {
 
   render() {
     return (
-      <FieldWrapper onClick={this.changeChord.bind(this)}>
+      <FieldWrapper onClick={this.changeChord}>
         <Row>
             <ChordButton chordName="Gb-maj"/>
             <ChordButton chordName="Db-maj"/>
@@ -50,24 +51,24 @@ class ButtonField extends Component {
             <ChordButton chordName="d-min" />
         </Row>
         <Row>
-            <ChordButton chordName="Bb-maj"/>
-            <ChordButton chordName="F-maj" />
+            <ChordButton chordName="Bb-maj-1"/>
+            <ChordButton chordName="F-maj-1" />
             <ChordButton chordName="C-maj" />
             <ChordButton chordName="G-maj" />
             <ChordButton chordName="D-maj" />
             <ChordButton chordName="A-maj" />
         </Row>
         <Row>
-            <ChordButton chordName="g-min"/>
-            <ChordButton chordName="d-min" />
+            <ChordButton chordName="g-min-1"/>
+            <ChordButton chordName="d-min-1" />
             <ChordButton chordName="a-min" />
             <ChordButton chordName="e-min" />
             <ChordButton chordName="b-min" />
             <ChordButton chordName="f#-min" />
         </Row>
         <Row>
-            <ChordButton chordName="D-maj"/>
-            <ChordButton chordName="A-maj" />
+            <ChordButton chordName="D-maj-1"/>
+            <ChordButton chordName="A-maj-1" />
             <ChordButton chordName="E-maj" />
             <ChordButton chordName="B-maj" />
             <ChordButton chordName="F#-maj" />

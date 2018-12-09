@@ -11,9 +11,19 @@ class ChordButton extends React.Component {
 
     constructor(props) {
         super();
-        this.chordName = props.chordName;
+        this.id = props.chordName;
+        this.chordName = this.getDisplayName(props.chordName);
         this.chordFullName = props.chordName;
         this.chordShortName = this.getShortName(props.chordName);
+    }
+
+    getDisplayName(fullName) {
+        var name = fullName.replace('-', ' ');
+        const match = name.match('-');
+        if (match !== null && match.index) {
+            name = name.slice(0, match.index);
+        }
+        return name;
     }
 
     getShortName(fullName) {
@@ -39,9 +49,9 @@ class ChordButton extends React.Component {
         };
         return letterName + type;
     }
-        
+
     render() {
-        return <Button id={this.chordName}>{this.chordName}</Button>;
+        return <Button id={this.id}>{this.chordName}</Button>;
     }
 
 }
