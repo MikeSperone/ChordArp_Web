@@ -2,8 +2,34 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
+    border: solid 3px SteelBlue;
+    display: inline-block;
+    margin: 20px;
+    border-radius: 10px;
+    overflow: hidden;
     float: left;
-    padding: 1rem;
+`;
+
+const RadioInput = styled.input`
+    position: absolute;
+    visibility: hidden;
+    display: none;
+`;
+
+const RadioLabel = styled.label`
+    color: #332f35;
+    display: inline-block;
+    cursor: pointer;
+    font-weight: bold;
+    padding: 5px 20px;
+    & + ${RadioInput} + & {
+        border-left: solid 3px LightSteelBlue;
+    }
+    ${RadioInput}:checked + & {
+        padding: 20px;
+        color: LightSteelBlue;
+        background: SteelBlue;
+    }
 `;
 
 class ToneControl extends React.Component {
@@ -11,6 +37,7 @@ class ToneControl extends React.Component {
     constructor(props) {
         super(props);
         this.props = props;
+        this.id = this.props.value + '-radio';
     }
     changeTone(e) {
         this.props.tone(e.target.value);
@@ -18,16 +45,16 @@ class ToneControl extends React.Component {
     }
     render() {
         return (
-            <p>
-                <input
-                    id={this.props.value + '-radio'}
+            <React.Fragment>
+                <RadioInput
+                    id={this.id}
                     onChange={(t) => this.changeTone(t)}
                     type="radio"
                     name="tone"
                     value={this.props.value}
                 />
-                {this.props.value}
-            </p>
+                <RadioLabel htmlFor={this.id}>{this.props.value}</RadioLabel>
+            </React.Fragment>
         );
     }
 }

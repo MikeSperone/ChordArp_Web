@@ -33,9 +33,10 @@ const StyledInput= styled.input`
     background: silver;
     border-radius: 3px;
     width: calc(99% - 8rem);
+    height: 0.1rem;
     border: 1px solid black;
     box-shadow: inset 1px 1px 1px grey;
-    padding: .25rem .5rem;
+    padding: 0 .25rem;
     margin: 0;
     ${props => props.vertical && `
         width: 40vh;

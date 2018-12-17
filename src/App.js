@@ -53,6 +53,12 @@ class App extends Component {
             power: this.defaults.power
         };
         this.synth = new Synth(this.state.density, this.defaults);
+        this.power = this.power.bind(this);
+        this.setRange = r => this.synth.setRange(r);
+        this.setSpeed = s => this.synth.setSpeed(s);
+        this.setDensity = d => this.synth.setDensity(d);
+        this.setTone = t => this.synth.setTone(t);
+        this.setVolume = v => this.synth.setVolume(v);
     }
 
     componentDidMount() {
@@ -64,9 +70,7 @@ class App extends Component {
 
     power() {
         this.setState(
-            prevState => {
-                return {power: !prevState.power};
-            },
+            prevState => ({power: !prevState.power}),
             () => this.synth.power(this.state.power)
         );
     }
@@ -76,17 +80,17 @@ class App extends Component {
             <div className="App">
                 <ControlSection>
                     <MainControls>
-                        <RangeControl range={r => this.synth.setRange(r)} />
-                        <SpeedControl speed={s => this.synth.setSpeed(s)} />
-                        <DensityControl density={d => this.synth.setDensity(d)} />
+                        <RangeControl range={this.setRange} />
+                        <SpeedControl speed={this.setSpeed} />
+                        <DensityControl density={this.setDensity} />
                     </MainControls>
                     <ToneControls
-                        tone={(t) => this.synth.setTone(t)}
+                        tone={this.setTone}
                     />
-                    <VolumeControl width='40vh' volume={v => this.synth.setVolume(v)} />
+                    <VolumeControl width='40vh' volume={this.setVolume} />
                     <PowerSection>
                         <Power
-                            onClick={() => this.power()}
+                            handleChange={this.power}
                             style={{backgroundColor: this.state.power ? "green" : "red"}}
                         >
                             Power

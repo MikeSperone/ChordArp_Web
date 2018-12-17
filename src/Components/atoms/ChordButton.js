@@ -5,6 +5,7 @@ const Button = styled.button`
     background-color: gray;
     width: calc(100% / 6);
     height: 100%;
+    border-radius: 4px;
 `;
 
 class ChordButton extends React.Component {
