@@ -2,11 +2,41 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Button = styled.button`
-    background-color: gray;
-    width: calc(100% / 6);
-    height: 100%;
+    width: calc((100% / 6) - 0.5rem);
+    height: calc(100% - 0.5rem);
     border-radius: 4px;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#f7f7f7), to(#e7e7e7));
+    background-image: -webkit-linear-gradient(top, #f7f7f7, #e7e7e7); 
+    background-image: -moz-linear-gradient(top, #f7f7f7, #e7e7e7); 
+    background-image: -ms-linear-gradient(top, #f7f7f7, #e7e7e7); 
+    background-image: -o-linear-gradient(top, #f7f7f7, #e7e7e7); 
+    color: #a7a7a7;
+    margin: 0.25rem;
+    position: relative;
+    text-align: center;
+    line-height: 144px;
+    box-shadow: 0px 3px 8px #aaa, inset 0px 2px 3px #fff;
+    &:hover {
+        text-decoration: none;
+        color: #555;
+        background: #f5f5f5;
+    }
+    &:before {
+        content: "";
+        display: block;
+        background: #fff;
+        border-top: 2px solid #ddd;
+        position: absolute;
+        top: -8px;
+        left: -8px;
+        bottom: -8px;
+        right: -8px;
+        z-index: -1;
+        border-radius: 4px;
+        box-shadow: inset 0px 8px 48px #ddd;
+    }
 `;
+
 
 class ChordButton extends React.Component {
 
