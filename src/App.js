@@ -19,21 +19,20 @@ injectGlobal`
         margin: 0;
     }
 `;
-const ControlSection = styled.div`
-    height: 50vh;
+
+const AppContainer = styled.div`
+    display: grid;
+    grid-template-columns: 2fr 1fr 6em;
+    grid-template-rows: 0.5fr 1.5fr 1fr 1fr;
+    grid-template-areas: "tone-controls other power-controls" "main-controls adsr power-controls" "buttons buttons buttons" "buttons buttons buttons";
 `;
-const MainControls = styled.div`
-    float: left;
-    width: 50vw;
-    min-width: 320px;
-    padding: 1rem;
-`;
-const PowerSection = styled.div`
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin: 1rem;
-`;
+
+const ToneSection = styled.div`grid-area: tone-controls`;
+const MainControls = styled.div`grid-area: main-controls`;
+const PowerSection = styled.div`grid-area: power-controls`;
+const ButtonSection = styled.div`grid-area: buttons`;
+const OtherSection = styled.div`grid-area: other`;
+const ADSRSection = styled.div`grid-area: adsr`;
 class App extends Component {
     constructor(props) {
         super();
@@ -77,32 +76,33 @@ class App extends Component {
 
     render() {
         return (
-            <div className="App">
-                <ControlSection>
-                    <MainControls>
-                        <RangeControl range={this.setRange} />
-                        <SpeedControl speed={this.setSpeed} />
-                        <DensityControl density={this.setDensity} />
-                    </MainControls>
-                    <ToneControls
-                        tone={this.setTone}
+            <AppContainer>
+                <ToneSection>
+                    <ToneControls tone={this.setTone} />
+                </ToneSection>
+                <MainControls>
+                    <RangeControl range={this.setRange} />
+                    <SpeedControl speed={this.setSpeed} />
+                    <DensityControl density={this.setDensity} />
+                </MainControls>
+                <PowerSection>
+                    <Power
+                        handleChange={this.power}
+                        style={{backgroundColor: this.state.power ? "green" : "red"}}
+                    >
+                        Power
+                    </Power>
+                    <VolumeControl volume={this.setVolume} />
+                </PowerSection>
+                <ButtonSection>
+                    <ButtonField
+                        changeChord={c => this.setChord(c)}
+                        currentChord={this.state.currentChord}
                     />
-                    <VolumeControl width='40vh' volume={this.setVolume} />
-                    <PowerSection>
-                        <Power
-                            handleChange={this.power}
-                            style={{backgroundColor: this.state.power ? "green" : "red"}}
-                        >
-                            Power
-                        </Power>
-                    </PowerSection>
-                </ControlSection>
-                <ButtonField
-                    changeChord={c => this.setChord(c)}
-                    currentChord={this.state.currentChord}
-                />
-
-            </div>
+                </ButtonSection>
+                <ADSRSection />
+                <OtherSection />
+            </AppContainer>
         );
     }
 }
