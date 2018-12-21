@@ -23,12 +23,15 @@ class ButtonField extends Component {
 
     changeChord(e) {
         e.persist();
-        this.setState((prevState, props) => {
-            document.getElementById(prevState.currentChord).style.backgroundColor = 'gray';
-            e.target.style.backgroundColor = 'blue';
-            props.changeChord(e.target.id);
-            return { currentChord: e.target.id };
-        });
+        if (e.target.id) {
+            this.setState((prevState, props) => {
+                document.getElementById(prevState.currentChord)
+                    .style.backgroundImage = '-webkit-linear-gradient(top, #f7f7f7, #e7e7e7)';
+                e.target.style.backgroundImage = '-webkit-linear-gradient(top, #61a1f7, #e7e7e7)';
+                props.changeChord(e.target.id);
+                return { currentChord: e.target.id };
+            });
+        }
     }
 
   render() {
