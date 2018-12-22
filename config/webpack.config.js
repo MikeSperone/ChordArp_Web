@@ -50,7 +50,9 @@ module.exports = {
     },
     devServer: {
         contentBase: __dirname + '/build',
-        historyApiFallback: true
+        historyApiFallback: true,
+        host: '0.0.0.0',
+        disableHostCheck: true
     },
     plugins: [
         // Generates an `index.html` file with the <script> injected.
