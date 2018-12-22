@@ -39,9 +39,9 @@ const StyledInput= styled.input`
     padding: 0 .25rem;
     margin: 0;
     ${props => props.vertical && `
-        width: 40vh;
+        width: ${props.width || '100%'};
         transform-origin: top right;
-        transform: rotate(-90deg) translateY(-40vh);
+        transform: rotate(-90deg) translateY(-${props.width});
     `}
     &::-webkit-slider-thumb {
         -webkit-appearance: none;
@@ -71,12 +71,14 @@ class Slider extends React.Component {
     render() {
         return (
             <InputWrapper>
-                <Label htmlFor={this.props.sliderName} {...this.props} >
-                    <Name>{this.props.sliderName}</Name>
-                    {this.props.vertical ? null : (
-                        <Value>{this.state.sliderValue}</Value>
-                    )}
-                </Label>
+                {this.props.hideLabel ? null : (
+                    <Label htmlFor={this.props.sliderName} >
+                        <Name>{this.props.sliderName}</Name>
+                        {this.props.vertical ? null : (
+                            <Value>{this.state.sliderValue}</Value>
+                        )}
+                    </Label>
+                )}
                 <StyledInput
                     id={this.props.sliderName}
                     max={this.props.max}
@@ -86,6 +88,7 @@ class Slider extends React.Component {
                     value={this.state.sliderValue}
                     onChange={this.slide.bind(this)}
                     vertical={this.props.vertical || false}
+                    { ...this.props }
                 />
             </InputWrapper>
         );
