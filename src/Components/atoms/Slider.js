@@ -28,7 +28,7 @@ const Value = styled.span`
     display: inline-block;
     width: 20%;
 `;
-const StyledInput= styled.input`
+const StyledInput = styled.input`
     -webkit-appearance: none;
     background: silver;
     border-radius: 3px;

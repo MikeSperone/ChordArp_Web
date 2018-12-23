@@ -4,10 +4,14 @@ import styled from 'styled-components';
 const Wrapper = styled.div`
     border: solid 3px SteelBlue;
     display: inline-block;
+    position: relative;
     margin: 20px;
     border-radius: 10px;
     overflow: hidden;
     float: left;
+    @media (max-width: 920px) {
+        width: 120px;
+    }
 `;
 
 const RadioInput = styled.input`
@@ -24,15 +28,28 @@ const RadioLabel = styled.label`
     padding: 5px 20px;
     & + ${RadioInput} + & {
         border-left: solid 3px LightSteelBlue;
+        @media (max-width: 920px) {
+            border-left: solid 0 white;
+            border-top: solid 3px LightSteelBlue;
+        }
+    }
+    @media (max-width: 920) {
+        ${RadioInput} + & {
+            display: none;
+        }
+        &:hover {
+            display: inline-block;
+        }
     }
     ${RadioInput}:checked + & {
         padding: 20px;
         color: LightSteelBlue;
         background: SteelBlue;
+        display: inline-block;
     }
 `;
 
-class ToneControl extends React.Component {
+class RadioControl extends React.Component {
 
     constructor(props) {
         super(props);
@@ -63,10 +80,10 @@ class ToneControls extends React.Component {
     render() {
         return (
             <Wrapper>
-                <ToneControl value="sawtooth" tone={(t) => this.props.tone(t)} />
-                <ToneControl value="sine" tone={(t) => this.props.tone(t)} />
-                <ToneControl value="square" tone={(t) => this.props.tone(t)} />
-                <ToneControl value="triangle" tone={(t) => this.props.tone(t)} />
+                <RadioControl value="sawtooth" tone={(t) => this.props.tone(t)} />
+                <RadioControl value="sine" tone={(t) => this.props.tone(t)} />
+                <RadioControl value="square" tone={(t) => this.props.tone(t)} />
+                <RadioControl value="triangle" tone={(t) => this.props.tone(t)} />
             </Wrapper>
         );
     }
