@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 const Wrapper = styled.div`
     border: solid 3px SteelBlue;
+    background: white;
     display: inline-block;
     position: relative;
     margin: 20px;
@@ -26,19 +27,20 @@ const RadioLabel = styled.label`
     cursor: pointer;
     font-weight: bold;
     padding: 5px 20px;
-    & + ${RadioInput} + & {
-        border-left: solid 3px LightSteelBlue;
-        @media (max-width: 920px) {
-            border-left: solid 0 white;
-            border-top: solid 3px LightSteelBlue;
+    @media (min-width: 921px) {
+        & + ${RadioInput} + & {
+            border-left: solid 3px LightSteelBlue;
         }
     }
-    @media (max-width: 920) {
+    @media (max-width: 920px) {
         ${RadioInput} + & {
             display: none;
         }
-        &:hover {
+        ${Wrapper}:hover & {
             display: inline-block;
+            width: 100%;
+            border-left: solid 0 white;
+            border-top: solid 3px LightSteelBlue;
         }
     }
     ${RadioInput}:checked + & {
