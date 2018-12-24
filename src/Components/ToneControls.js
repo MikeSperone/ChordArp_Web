@@ -46,7 +46,9 @@ const RadioLabel = styled.label`
         }
     }
     ${RadioInput}:checked + & {
-        width: 100%;
+        @media (max-width: 920px) {
+            width: 100%;
+        }
         padding: 20px;
         color: LightSteelBlue;
         background: SteelBlue;
