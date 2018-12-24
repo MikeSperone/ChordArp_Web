@@ -27,6 +27,10 @@ const Name = styled.span`
 const Value = styled.span`
     display: inline-block;
     width: 20%;
+    @media (max-width: 920px) {
+        display: none;
+        width: auto;
+    }
 `;
 const StyledInput = styled.input`
     -webkit-appearance: none;
@@ -52,6 +56,9 @@ const StyledInput = styled.input`
         outline: 1px solid black;
         height: 40px;
         width: 12px;
+    }
+    @media (max-width: 920px) {
+        width: auto;
     }
 `;
 
