@@ -40,10 +40,13 @@ const RadioLabel = styled.label`
             display: inline-block;
             width: 100%;
             border-left: solid 0 white;
+        }
+        ${Wrapper}:hover & + ${RadioInput} + & {
             border-top: solid 3px LightSteelBlue;
         }
     }
     ${RadioInput}:checked + & {
+        width: 100%;
         padding: 20px;
         color: LightSteelBlue;
         background: SteelBlue;
