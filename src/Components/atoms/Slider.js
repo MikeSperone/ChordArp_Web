@@ -58,13 +58,14 @@ const StyledInput = styled.input`
 class Slider extends React.Component {
     constructor(props) {
         super(props);
+        this.slide = this.slide.bind(this);
         this.state = {
             sliderValue: props.value
         }
     }
     slide(e) {
         const val = e.target.value;
-        this.setState({sliderValue: val});
+        this.setState(() => ({sliderValue: val}));
         this.props.onSlide(val);
     }
 
@@ -72,7 +73,7 @@ class Slider extends React.Component {
         return (
             <InputWrapper>
                 {this.props.hideLabel ? null : (
-                    <Label htmlFor={this.props.sliderName} >
+                    <Label htmlFor={this.props.sliderName}>
                         <Name>{this.props.sliderName}</Name>
                         {this.props.vertical ? null : (
                             <Value>{this.state.sliderValue}</Value>
@@ -86,9 +87,9 @@ class Slider extends React.Component {
                     step={this.props.step}
                     type="range"
                     value={this.state.sliderValue}
-                    onChange={this.slide.bind(this)}
+                    onChange={this.slide}
                     vertical={this.props.vertical || false}
-                    { ...this.props }
+                    width={this.props.width}
                 />
             </InputWrapper>
         );
