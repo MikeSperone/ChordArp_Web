@@ -9,7 +9,7 @@ const InputWrapper = styled.div`
 `;
 
 const Label = styled.label`
-    display: inline-block;
+    display: block;
     padding: 1rem;
     padding-left: 0;
     width: 6rem;
@@ -36,12 +36,11 @@ const StyledInput = styled.input`
     -webkit-appearance: none;
     background: silver;
     border-radius: 3px;
-    width: calc(99% - 8rem);
+    width: calc(99% - 2rem);
     height: 0.1rem;
     border: 1px solid black;
     box-shadow: inset 1px 1px 1px grey;
-    padding: 0 .25rem;
-    margin: 0;
+    margin: 0 1rem;
     ${props => props.vertical && `
         width: ${props.width || '100%'};
         transform-origin: top right;
@@ -58,7 +57,6 @@ const StyledInput = styled.input`
         width: 12px;
     }
     @media (max-width: 920px) {
-        width: auto;
     }
 `;
 

@@ -17,6 +17,8 @@ injectGlobal`
     body {
         font-family: 'Open Sans', sans-serif;
         margin: 0;
+        overflow: hidden;
+        min-width: 320px;
     }
 `;
 
