@@ -1,7 +1,6 @@
 
-var Chords = require('./chords');
+var chords = require('./chords').default;
 
 it ('gets pitch number from note name', () => {
-    let chord = new Chords();
-    expect(chord.root("eb")).toEqual(3);
+    expect(chords.getRoot("eb")).to.equal(3);
 });
