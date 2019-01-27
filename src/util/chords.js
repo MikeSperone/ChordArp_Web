@@ -20,7 +20,7 @@ const chords  = {
             case "pow":
                 return this.powChord();
             case "int":
-                return this.interval(p, interval);
+                return this.interval(interval);
             default:
                 return [this.root, this.root, this.root];
         }
