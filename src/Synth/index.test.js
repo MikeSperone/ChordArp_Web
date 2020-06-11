@@ -26,4 +26,10 @@ describe.skip('synth tests', () => {
         synth.addSynthVoices(3);
         expect(synth.synthVoices.length).to.equal(3);
     });
+    it('can decrease the number of voices', () => {
+        synth.removeSynthVoices(2);
+        expect(synth.synthVoices.length).to.equal(1);
+    });
+
+
 });

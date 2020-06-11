@@ -3,9 +3,12 @@ import WebWorker from "../util/webWorker";
 
 export default class Synth {
     constructor(num, defaults) {
-        this.context = new (window.AudioContext || window.webkitAudioContext)();
+        this.context = (typeof window !== "undefined") ?
+            new (window.AudioContext || window.webkitAudioContext)() :
+            // for testing
+            {};
         this.synthVoices = [];
-        this.current = {
+        this.state = {
             chord: {
                 letter: 'c',
                 type: 'maj'
@@ -23,7 +26,7 @@ export default class Synth {
     addSynthVoices(num) {
         var i = 0;
         for (i; i < num; i++) {
-            // this.synthVoices.push(new Voice(this.context, this.current));
+            // this.synthVoices.push(new Voice(this.context, this.state));
             this.synthVoices.push(new WebWorker(voice));
         }
     }
@@ -36,7 +39,7 @@ export default class Synth {
         }
     }
     power(power) {
-        this.current.power = power;
+        this.state.power = power;
         this.synthVoices.forEach(synth => {
             synth.run(power);
         });
@@ -48,10 +51,10 @@ export default class Synth {
     }
     setChord(currentChord) {
         const nameSplit = currentChord.split("-");
-        this.current.chord.letter = nameSplit[0].toLowerCase();
-        this.current.chord.type = nameSplit[1].toLowerCase();
+        this.state.chord.letter = nameSplit[0].toLowerCase();
+        this.state.chord.type = nameSplit[1].toLowerCase();
         this.synthVoices.forEach(synth => {
-            synth.setChord(this.current.chord.letter, this.current.chord.type);
+            synth.setChord(this.state.chord.letter, this.state.chord.type);
         });
     }
     setDensity(newDensity) {
@@ -65,19 +68,19 @@ export default class Synth {
         }
     }
     setRange(range) {
-        this.current.range = range;
+        this.state.range = range;
         this.synthVoices.forEach(synth => synth.setRange(range));
     }
     setSpeed(speed) {
-        this.current.speed = speed;
+        this.state.speed = speed;
         this.synthVoices.forEach(synth => synth.setSpeed(speed));
     }
     setTone(t) {
-        this.current.currentTone = t;
+        this.state.currentTone = t;
         this.synthVoices.forEach(synth => synth.setTone(t));
     }
     setVolume(v) {
-        this.current.currentVolume = v;
+        this.state.currentVolume = v;
         this.synthVoices.forEach(synth => synth.setVolume(v));
     }
 }
