@@ -21,8 +21,23 @@ export default class Synth {
             currentVolume: defaults.currentVolume
         };
         this.addSynthVoices(num);
-        this.worker = new WebWorker(worker);
+        // this.worker = new WebWorker(worker);
+        this._bind.call(this);
     }
+    
+    _bind() {
+        this.addSynthVoices = this.addSynthVoices.bind(this);
+        this.removeSynthVoices = this.removeSynthVoices.bind(this);
+        this.power = this.power.bind(this);
+        this.setBaseOctave = this.setBaseOctave.bind(this);
+        this.setChord = this.setChord.bind(this);
+        this.setDensity = this.setDensity.bind(this);
+        this.setRange = this.setRange.bind(this);
+        this.setSpeed = this.setSpeed.bind(this);
+        this.setTone = this.setTone.bind(this);
+        this.setVolume = this.setVolume.bind(this);
+    }
+
     addSynthVoices(num) {
         var i = 0;
         for (i; i < num; i++) {

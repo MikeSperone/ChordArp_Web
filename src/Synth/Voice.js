@@ -15,7 +15,6 @@ export default (c, d) => {
                 break;
         }
     });
-
 }
 
 class Voice {
@@ -77,6 +76,7 @@ class Voice {
     mtof(midi) {
         return (Math.pow(2, ((midi-69)/12)) * 440);
     }
+
     synth(freq) {
         let ctx = this.context;
         let vol = this.volume * 0.5;
